@@ -1,7 +1,7 @@
 import React from 'react';
 import { WeatherData } from '../types/weather';
 
-interface CityCardProps {
+export interface CityCardProps {
   name: string;
   weatherData: WeatherData;
 }
