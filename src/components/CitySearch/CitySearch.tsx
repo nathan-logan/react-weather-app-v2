@@ -8,7 +8,7 @@ const CitySearch: React.FC<CitySearchProps> = (props) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState<Error | null>(null);
 
-  const handleCitySeachChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCitySeachChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     if (searchError) {
       setSearchError(null);
     }
@@ -16,7 +16,7 @@ const CitySearch: React.FC<CitySearchProps> = (props) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>):void => {
     e.preventDefault();
     
     if (!searchQuery) {
@@ -25,15 +25,23 @@ const CitySearch: React.FC<CitySearchProps> = (props) => {
     }
 
     props.handleSearch(searchQuery);
+    setSearchQuery('');
+  };
+
+  const handleSearchInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      props.handleSearch(searchQuery);
+      setSearchQuery('');
+    }
   };
   
   return (
-    <div>
-      <input type="text" name="city-search" id="city-search" value={searchQuery} onChange={handleCitySeachChange} />
-      <button onClick={handleSearch}>Search</button>
+    <>
+      <input type="text" name="city-search" id="city-search" value={searchQuery} onChange={handleCitySeachChange} onKeyDown={handleSearchInputKeyDown} />
+      <button onClick={handleSearch}>Add City</button>
       <br />
       <span className="error">{searchError && searchError.message}</span>
-    </div>
+    </>
   );
 };
 

@@ -1,0 +1,29 @@
+.weather-app__wrapper {
+  margin: 1rem;
+}
+@media only screen and (min-width: 480px) {
+  .weather-app__wrapper {
+    margin: 1rem 4rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .weather-app__wrapper {
+    margin: 1rem 10vw;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .weather-app__wrapper {
+    margin: 1rem 20vw;
+  }
+}
+.weather-app__error {
+  margin-bottom: 1rem;
+}
+.weather-app__search__wrapper {
+  margin-bottom: 1rem;
+}
+.weather-app__cities__wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

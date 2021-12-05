@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import WeatherApp from './components/WeatherApp';
+import WeatherApp from './components/WeatherApp/WeatherApp';
 import OpenWeather from './lib/openWeather';
 
 const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY || '';

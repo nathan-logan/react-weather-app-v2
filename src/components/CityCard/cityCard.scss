@@ -1,0 +1,48 @@
+.city-card {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    background: rgb(197, 215, 230);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+
+    flex-basis: 100%;
+
+    @media only screen and (min-width: 480px) {
+      flex-basis: 100%;
+    }
+
+    @media only screen and (min-width: 768px) {
+      flex-basis: 42%;
+    }
+  }
+
+  &__local {
+    font-size: 12px;
+    color: rgb(80, 102, 119);
+    margin-bottom: 0.5rem;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    &__name {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin: 0 0.5rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
