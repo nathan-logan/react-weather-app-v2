@@ -40,22 +40,53 @@ const WeatherApp: React.FC = () => {
       });
   }, [localLatitude, localLongitude, openWeatherAPI]);
   
+  const updateCitiesStore = (updatedCitiesStoreItems: CityCardProps[]): void => {
+    window.localStorage.setItem('cities', JSON.stringify(updatedCitiesStoreItems));
+  };
+  
+  const getCitiesStore = (): CityCardProps[] => {
+    const citiesStore = window.localStorage.getItem('cities');
+
+    if (citiesStore) {
+      try {
+        const citiesStoreArray = JSON.parse(citiesStore);
+        return citiesStoreArray;
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error(err.stack);
+          setErrorMessage(`Failed to parse cities store ${err.message}`);
+        }
+      }
+    }
+    
+    return [];
+  };
+
   const addCity = (payload: CityCardProps): void => {
+    const citiesStore = getCitiesStore();
+
+    if (citiesStore) {
+      citiesStore.push(payload);
+      updateCitiesStore(citiesStore);
+    } else {
+      setErrorMessage('Failed to update store: Missing cities store item');
+    }
+    
     setCities((currentCities) => [...currentCities, payload]);
   };
 
   const removeCity = (name: string): void => {
-    const citiesCopy = cities;
-    const cityToRemoveIndex = citiesCopy.findIndex(x => x.name === name);
+    const citiesStateCopy = cities;
+    const cityStateIndex = citiesStateCopy.findIndex((x) => x.name === name);
 
-    // I doubt this case will ever happen
-    if (cityToRemoveIndex === -1) {
-      console.error('Cannot find city "%s" to remove', name);
+    if (cityStateIndex === -1) {
+      setErrorMessage(`Cannot find city "${name}" in state`);
       return;
     }
 
-    citiesCopy.splice(cityToRemoveIndex, 1);
-    setCities([...citiesCopy]);
+    citiesStateCopy.splice(cityStateIndex, 1);
+    updateCitiesStore(citiesStateCopy);
+    setCities([...citiesStateCopy]);
   };
   
   const handleCitySearch = async (cityName: string): Promise<void> => {
@@ -90,6 +121,9 @@ const WeatherApp: React.FC = () => {
   };
   
   useEffect(() => {
+    const citiesStore = getCitiesStore();
+    setCities(citiesStore);
+    
     navigator.geolocation.getCurrentPosition(geolocationPositionCallback, geolocationErrorCallback);
   }, []);
   
