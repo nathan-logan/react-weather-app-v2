@@ -102,12 +102,6 @@ const WeatherApp: React.FC = () => {
       });
   };
   
-  useEffect(() => {
-    if (localLatitude !== 0 && localLongitude !== 0) {
-      updateLocalWeather();
-    }
-  }, [localLatitude, localLongitude, updateLocalWeather]);
-  
   const geolocationPositionCallback = (pos: GeolocationPosition): void => {
     setGeoIsEnabled(true);
     setLocalLatitude(pos.coords.latitude);
@@ -121,9 +115,15 @@ const WeatherApp: React.FC = () => {
   };
   
   useEffect(() => {
+    if (localLatitude !== 0 && localLongitude !== 0) {
+      updateLocalWeather();
+    }
+  }, [localLatitude, localLongitude, updateLocalWeather]);
+  
+  useEffect(() => {
     const citiesStore = getCitiesStore();
     setCities(citiesStore);
-    
+
     navigator.geolocation.getCurrentPosition(geolocationPositionCallback, geolocationErrorCallback);
   }, []);
   
