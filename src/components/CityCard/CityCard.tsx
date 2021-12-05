@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { OpenWeatherResponse } from '../../types/weather';
+import { OpenWeatherResponse } from '../../types/openWeather';
 
 import './cityCard.css';
 

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { OpenWeatherResponse } from '../types/weather';
+import { OpenWeatherResponse } from '../types/openWeather';
 
 /**
  * https://openweathermap.org/current#one
