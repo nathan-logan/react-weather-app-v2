@@ -6,6 +6,8 @@ A simple React SPA to view weather information for a particular city.
 * Display information about the weather in those cities
 * Save data locally so user can re-open app and see the same cities he/she chosen before
 
+![Showcase Image](showcase.png)
+
 ## Installing
 
 1. `npm install` or `yarn install`
