@@ -12,5 +12,6 @@ A simple React SPA to view weather information for a particular city.
 
 ## Running
 
-1. Add the following environment variable `OPENWEATHER_API_KEY=...`
-2. `npm run start` or `yarn install`
+1. Get an API key from OpenWeather & add as an environment variable `REACT_APP_OPENWEATHER_API_KEY=...`
+1. Add the OpenWeather API URL environment variable `REACT_APP_OPENWEATHER_API_BASE=https://api.openWeathermap.org/data/2.5`
+2. `npm run start` or `yarn start`
