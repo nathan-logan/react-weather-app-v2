@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { OpenWeatherResponse } from '../types/weather';
 
 /**
  * https://openweathermap.org/current#one
@@ -17,7 +18,7 @@ class Weather {
    * @param countryCode Optional country code to refine the city search
    * @returns A weather data object
    */
-  public getByCityName(cityName: string, stateCode?: string, countryCode?: string): Promise<AxiosResponse<unknown>> {
+  public getByCityName(cityName: string, stateCode?: string, countryCode?: string): Promise<AxiosResponse<OpenWeatherResponse>> {
     if (!cityName) {
       throw new Error('Missing city name');
     }
@@ -32,7 +33,7 @@ class Weather {
       endpoint += `,${countryCode}`;
     }
     
-    return this.request.get(endpoint);
+    return this.request.get<OpenWeatherResponse>(endpoint);
   }
 
   /**
@@ -40,14 +41,14 @@ class Weather {
    * @param id The city ID to query for
    * @returns A weather data object
    */
-  public getByCityId(id: string | number): Promise<AxiosResponse<unknown>> {
+  public getByCityId(id: string | number): Promise<AxiosResponse<OpenWeatherResponse>> {
     if (!id) {
       throw new Error('Missing city id');
     }
 
     const endpoint = `/weather?id=${id}`;
 
-    return this.request.get(endpoint);
+    return this.request.get<OpenWeatherResponse>(endpoint);
   }
 
   /**
@@ -56,7 +57,7 @@ class Weather {
    * @param longitude The longitude coordinate
    * @returns A weather data object
    */
-  public getByCoordinates(latitude: number, longitude: number): Promise<AxiosResponse<unknown>> {
+  public getByCoordinates(latitude: number, longitude: number): Promise<AxiosResponse<OpenWeatherResponse>> {
     if (!latitude) {
       throw new Error('Missing latitude');
     }
@@ -65,9 +66,9 @@ class Weather {
       throw new Error('Missing longitude');
     }
 
-    const endpoint = `/weather?lat=${latitude}&long=${longitude}`;
+    const endpoint = `/weather?lat=${latitude}&lon=${longitude}`;
 
-    return this.request.get(endpoint);
+    return this.request.get<OpenWeatherResponse>(endpoint);
   }
 }
 
@@ -84,8 +85,8 @@ class OpenWeatherRequestService {
     this.apiBase = apiBase;
   }
 
-  public get(endpoint: string, opts?: AxiosRequestConfig): Promise<AxiosResponse<unknown>> {
-    const authorisedUrl = `${this.apiBase}${endpoint}&appid=${this.apiKey}`;
+  public get<T>(endpoint: string, opts?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    const authorisedUrl = `${this.apiBase}${endpoint}&appid=${this.apiKey}&units=metric`;
     return axios.get(authorisedUrl, opts);
   }
 }
